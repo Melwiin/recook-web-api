@@ -2,9 +2,7 @@ package org.recook.api.Recipe;
 
 import lombok.AllArgsConstructor;
 import org.recook.api.File.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -29,6 +26,12 @@ public class RecipeController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:6006"})
     public List<Recipe> fetchAllRecipes() {
         return recipeService.getAllRecipes();
+    }
+
+    @GetMapping("/suggestions")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:6006"})
+    public List<String> fetchSuggestions(@RequestParam(name = "q") String query) {
+        return recipeService.getSuggestions(query);
     }
 
     @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
