@@ -28,9 +28,15 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @GetMapping("/id")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:6006"})
+    public Recipe getRecipeById(@RequestParam(name = "q") String id) {
+     return recipeService.getRecipeById(id);
+    }
+
     @GetMapping("/suggestions")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:6006"})
-    public List<String> fetchSuggestions(@RequestParam(name = "q") String query) {
+    public List<Recipe> fetchSuggestions(@RequestParam(name = "q") String query) {
         return recipeService.getSuggestions(query);
     }
 
